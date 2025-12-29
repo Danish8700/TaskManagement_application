@@ -1,0 +1,94 @@
+﻿
+@model System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Task List</h2>
+
+<!-- 🔍 SEARCH BAR -->
+@using (Html.BeginForm("Index", "Task", FormMethod.Get))
+{
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Search by Title / Status / Remarks"
+                   value="@Request.QueryString["search"]" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+            <a href="/Task/Index" class="btn btn-secondary">
+                Clear
+            </a>
+        </div>
+    </div>
+}
+
+<a href="/Task/Create" class="btn btn-success mb-2">Add Task</a>
+<div class="d-flex justify-content-between mb-3">
+    <h2>Task List</h2>
+
+    <a href="@Url.Action("Login", "Account")"
+       class="btn btn-danger">
+        Logout
+    </a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Task Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Created On</th>
+        <th>Created By</th>
+        <th>Last Updated On</th>
+        <th>Last Updated By</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            <td>@row["TaskTitle"]</td>
+            <td>@row["TaskDescription"]</td>
+            <td>@Convert.ToDateTime(row["TaskDueDate"]).ToString("dd-MM-yyyy")</td>
+            <td>@row["TaskStatus"]</td>
+            <td>@row["TaskRemarks"]</td>
+            <td>@Convert.ToDateTime(row["CreatedOn"]).ToString("dd-MM-yyyy HH:mm")</td>
+
+            <td>
+                @row["CreatedByName"] (@row["CreatedById"])
+            </td>
+
+            <td>
+                @(row["LastUpdatedOn"] == DBNull.Value
+              ? "-"
+              : Convert.ToDateTime(row["LastUpdatedOn"]).ToString("dd-MM-yyyy HH:mm"))
+            </td>
+
+            <td>
+                @row["LastUpdatedByName"] (@row["LastUpdatedById"])
+            </td>
+
+            <td>
+                <a href="/Task/Edit/@row["TaskId"]"
+                   class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a href="/Task/Delete/@row["TaskId"]"
+                   onclick="return confirm('Are you sure?')"
+                   class="btn btn-danger btn-sm">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,77 @@
+﻿@model TaskManagement_application.Models.TaskModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Task", FormMethod.Post))
+{
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Task</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskTitle, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskTitle, new
+                    {
+                        @class = "form-control",
+                        placeholder = "Enter task title"
+                    })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskDescription, new { @class = "form-label" })
+                    @Html.TextAreaFor(m => m.TaskDescription, new
+                    {
+                        @class = "form-control",
+                        rows = "3",
+                        placeholder = "Enter task description"
+                    })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskDueDate, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskDueDate, "{0:yyyy-MM-dd}", new
+                    {
+                        @class = "form-control",
+                        type = "date"
+                    })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskStatus, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.TaskStatus,
+                        new SelectList(new[]
+                        {
+                            "Pending",
+                            "In Progress",
+                            "Completed"
+                        }),
+                        "Select Status",
+                        new { @class = "form-select" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskRemarks, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskRemarks, new
+                    {
+                        @class = "form-control",
+                        placeholder = "Any remarks (optional)"
+                    })
+                </div>
+
+            </div>
+
+            <div class="card-footer text-end">
+                <button type="submit" class="btn btn-success px-4">
+                    Save Task
+                </button>
+            </div>
+        </div>
+    </div>
+}

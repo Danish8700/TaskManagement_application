@@ -1,0 +1,111 @@
+﻿@model TaskManagement_application.Models.TaskModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Task</h2>
+
+@using (Html.BeginForm("Edit", "Task", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.TaskId)
+
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Update Task</h5>
+            </div>
+
+            <div class="card-body">
+
+                <!-- Title -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskTitle, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskTitle, new
+                    {
+                        @class = "form-control",
+                        placeholder = "Enter task title"
+                    })
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskDescription, new { @class = "form-label" })
+                    @Html.TextAreaFor(m => m.TaskDescription, new
+                    {
+                        @class = "form-control",
+                        rows = "3",
+                        placeholder = "Enter task description"
+                    })
+                </div>
+
+                <!-- Due Date -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskDueDate, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskDueDate, "{0:yyyy-MM-dd}", new
+                    {
+                        @class = "form-control",
+                        type = "date"
+                    })
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskStatus, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.TaskStatus,
+                        new SelectList(new[]
+                        {
+                            "Pending",
+                            "In Progress",
+                            "Completed"
+                        }, Model.TaskStatus),
+                        new { @class = "form-select" })
+                </div>
+
+                <!-- Remarks -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TaskRemarks, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TaskRemarks, new
+                    {
+                        @class = "form-control",
+                        placeholder = "Any remarks"
+                    })
+                </div>
+
+            </div>
+
+            <div class="card-footer d-flex justify-content-between">
+                <a href="@Url.Action("Index", "Task")" class="btn btn-secondary">
+                    Back
+                </a>
+
+                <button type="submit" class="btn btn-success px-4">
+                    Update Task
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.TaskId)
+
+        <label>Title</label>
+        @Html.TextBoxFor(m => m.TaskTitle, new { @class = "form-control" })
+
+        <label>Description</label>
+        @Html.TextAreaFor(m => m.TaskDescription, new { @class = "form-control" })
+
+        <label>Due Date</label>
+        @Html.TextBoxFor(m => m.TaskDueDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
+
+        <label>Status</label>
+        @Html.TextBoxFor(m => m.TaskStatus, new { @class = "form-control" })
+
+        <label>Remarks</label>
+        @Html.TextBoxFor(m => m.TaskRemarks, new { @class = "form-control" })
+
+        <br />
+        <input type="submit" value="Update" class="btn btn-success" />
+    }*@
