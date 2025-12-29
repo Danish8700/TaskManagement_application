@@ -14,7 +14,7 @@ This project is designed to demonstrate real-world CRUD operations, database int
 - Delete tasks
 - Track task status (Pending / In Progress / Completed)
 - Add remarks and due dates
-- Audit information (CreatedOn, UpdatedOn, CreatedBy, UpdatedBy)
+- Audit information (CreatedOn, Last UpdatedOn, CreatedBy, Last UpdatedBy)
 
 ---
 
